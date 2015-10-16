@@ -1,4 +1,4 @@
-create or replace PACKAGE BODY                 p_afr_utils IS
+create or replace PACKAGE BODY p_afr_utils IS
 
 PROCEDURE abo_insert_contact
  (p_numabo           IN abo_abonn.numabo%TYPE
@@ -136,7 +136,7 @@ function get_last_xday
 as
   e_param_error exception;
   l_jour number := null;
-  l_date date := null;
+  l_date date   := null;
 
 
 begin
@@ -254,7 +254,7 @@ end get_last_xday;
   --          => Même résultat mais meilleure précision dans le cas où
   --          SAP n'utilse pas toutes les décimales.
   --
-  -- dépendances : table "cod_exchangerate
+  -- dépendances : table "cod_exchangerate"
   -- entrée : i_montant      => montant à convertir (NUMBER NOT NULL)
   --          i_devisefrom   => devise de départ (VARCHAR2 NOT NULL)
   --          i_deviseto     => devise d'arrivée (VARCHAR2 NOT NULL)
@@ -277,7 +277,6 @@ end get_last_xday;
     r_out number := null;
     e_param_error exception;
   begin
-
     -- contrôle des params d'appel
     if   i_montant is null
       or i_devisefrom is null
@@ -364,7 +363,7 @@ end get_last_xday;
       raise e_param_error;
     end if;
 
-    -- fin postérieure à début ?
+    -- fin postérieure au début ?
     if i_fin1 < i_deb1 or i_fin2 < i_deb2 then
       raise e_param_error;
     end if;
