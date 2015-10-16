@@ -35,6 +35,7 @@ IS
 /*  p_datclose : date de cloture                                                              */
 /*                                                                                            */
 /* Karlo Godicelj  06/08/2014   creation                                                      */
+/*                                                                                            */
 /**********************************************************************************************/
   wnumcontact abo_contact.numcontact%TYPE;
 
@@ -123,13 +124,13 @@ function get_last_xday
   /******************************************************************************
      NOM:    get_last_xday
      ROLE: Retourne la date du dernier lundi/mardi/.../samedi/dimanche
-           du mois dont la date est passée en paramètre.
+           du mois dont la date est passÃ©e en paramÃ¨tre.
      DEPENDANCES : aucune
      RETOUR : une date
      REVISIONS:
      Ver        Date        Author           Description
      ---------  ----------  ---------------  ------------------------------------
-     1.0        17/09/2015  V. BRU           Création
+     1.0        17/09/2015  V. BRU           CrÃ©ation
 
 
   ******************************************************************************/
@@ -141,7 +142,7 @@ as
 
 begin
 
-  -- contrôle des paramètres d'entrée
+  -- contrÃ´le des paramÃ¨tres d'entrÃ©e
   if i_jour is null then
     raise e_param_error;
   end if;
@@ -152,7 +153,7 @@ begin
     l_date := i_date;
   end if;
 
-  -- transco du numéro de jour dans la semaine du paramètre d'appel
+  -- transco du numÃ©ro de jour dans la semaine du paramÃ¨tre d'appel
   case
     when lower(i_jour) = 'lundi'    or i_jour = '1' then l_jour := 1;
     when lower(i_jour) = 'mardi'    or i_jour = '2' then l_jour := 2;
@@ -164,9 +165,9 @@ begin
     else raise e_param_error;
   end case;
 
-  -- on boucle à partir du dernier jour du mois pour voir s'il s'agit du
-  -- jour de la semaine recherché. Tant que "non" => on retourne un jour en arrière
-  -- On va jusqu'à 7 car il y a 7 jours / semaine... :)
+  -- on boucle Ã  partir du dernier jour du mois pour voir s'il s'agit du
+  -- jour de la semaine recherchÃ©. Tant que "non" => on retourne un jour en arriÃ¨re
+  -- On va jusqu'Ã  7 car il y a 7 jours / semaine... :)
   for i in 0..7 loop
     if to_number(to_char(last_day(l_date)-i,'d'))  = l_jour then
       return last_day(l_date) - i;
@@ -184,14 +185,14 @@ end get_last_xday;
 
   -- ----------------------------------------------------------------
   -- nom    : calcul_intervalle_temps
-  -- rôle   : renvoie l'intervalle de temps entre deux dates, formaté
-  -- dépendances : aucune
-  -- entrée : 2 dates
+  -- rÃ´le   : renvoie l'intervalle de temps entre deux dates, formatÃ©
+  -- dÃ©pendances : aucune
+  -- entrÃ©e : 2 dates
   -- sortie : 1 varchar2 au format - "xx j yy h zz min ss sec" -
   --
   -- Version *    Date    * Auteur         *    Description
   -- -------      ----      ------              -----------
-  --   1.0   * 06/10/2015 * V. BRU         *    Création
+  --   1.0   * 06/10/2015 * V. BRU         *    CrÃ©ation
   --
   --
   --
@@ -208,7 +209,7 @@ end get_last_xday;
   
     begin
   
-        -- conbtrôle des params d'appel
+        -- conbtrÃ´le des params d'appel
         if (i_debut is null or i_fin is null)
         then
             return null;
@@ -247,23 +248,23 @@ end get_last_xday;
 
   -- ----------------------------------------------------------------
   -- nom    : get_exchange_rate
-  -- rôle   : renvoie le taux de change entre deux devises en tenant
-  --          compte du "déversement inverse" multiplié par la somme à 
-  --          converit. C'est à dire que si le taux de conversion est < 0 
+  -- rÃ´le   : renvoie le taux de change entre deux devises en tenant
+  --          compte du "dÃ©versement inverse" multipliÃ© par la somme Ã  
+  --          converit. C'est Ã  dire que si le taux de conversion est < 0 
   --          alors on divise le montant par l'inverse du taux de change 
-  --          => Même résultat mais meilleure précision dans le cas où
-  --          SAP n'utilse pas toutes les décimales.
+  --          => MÃªme rÃ©sultat mais meilleure prÃ©cision dans le cas oÃ¹
+  --          SAP n'utilse pas toutes les dÃ©cimales.
   --
-  -- dépendances : table "cod_exchangerate"
-  -- entrée : i_montant      => montant à convertir (NUMBER NOT NULL)
-  --          i_devisefrom   => devise de départ (VARCHAR2 NOT NULL)
-  --          i_deviseto     => devise d'arrivée (VARCHAR2 NOT NULL)
+  -- dÃ©pendances : table "cod_exchangerate"
+  -- entrÃ©e : i_montant      => montant Ã  convertir (NUMBER NOT NULL)
+  --          i_devisefrom   => devise de dÃ©part (VARCHAR2 NOT NULL)
+  --          i_deviseto     => devise d'arrivÃ©e (VARCHAR2 NOT NULL)
   --          i_dateexchange => date de conversion (DATE NOT NULL)
   -- sortie : La somme convertie dans la nouvelle monnaie (NUMBER)
   --
   -- Version *    Date    * Auteur         *    Description
   -- -------      ----      ------              -----------
-  --   1.0   * 07/10/2015 * V. BRU         *    Création
+  --   1.0   * 07/10/2015 * V. BRU         *    CrÃ©ation
   --
   --
   --
@@ -277,7 +278,7 @@ end get_last_xday;
     r_out number := null;
     e_param_error exception;
   begin
-    -- contrôle des params d'appel
+    -- contrÃ´le des params d'appel
     if   i_montant is null
       or i_devisefrom is null
       or i_deviseto is null
@@ -327,13 +328,13 @@ end get_last_xday;
 
    -- ----------------------------------------------------------------
   -- nom    : is_recouvrement_intervalles
-  -- rôle   : renvoie "1" si les deux intervalles temporels ont une
+  -- rÃ´le   : renvoie "1" si les deux intervalles temporels ont une
   --          intersection, renvoie "0" sinon.
   --
-  -- dépendances : aucune
-  -- entrée : i_deb1 => date de début intervalle 1 (DATE NOT NULL)
+  -- dÃ©pendances : aucune
+  -- entrÃ©e : i_deb1 => date de dÃ©but intervalle 1 (DATE NOT NULL)
   --          i_fin1 => date de fin intervalle 1   (DATE NOT NULL)
-  --          i_deb2 => date de début intervalle 2 (DATE NOT NULL)
+  --          i_deb2 => date de dÃ©but intervalle 2 (DATE NOT NULL)
   --          i_fin2 => date de fin intervalle 2   (DATE NOT NULL)
   --
   -- sortie : 0 => pas de recouvrement
@@ -341,7 +342,7 @@ end get_last_xday;
   --
   -- Version *    Date    * Auteur         *    Description
   -- -------      ----      ------              -----------
-  --   1.0   * 07/10/2015 * V. BRU         *    Création
+  --   1.0   * 07/10/2015 * V. BRU         *    CrÃ©ation
   --
   --
   --
@@ -355,7 +356,7 @@ end get_last_xday;
     e_param_error exception;
   begin
 
-    -- paramètres d'appel non vides ?
+    -- paramÃ¨tres d'appel non vides ?
     if   i_deb1 is null
       or i_fin1 is null
       or i_deb2 is null
@@ -363,7 +364,7 @@ end get_last_xday;
       raise e_param_error;
     end if;
 
-    -- fin postérieure au début ?
+    -- fin postÃ©rieure au dÃ©but ?
     if i_fin1 < i_deb1 or i_fin2 < i_deb2 then
       raise e_param_error;
     end if;
